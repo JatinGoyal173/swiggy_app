@@ -39,7 +39,7 @@ restaurants = {
     'Taco Fiesta': {
         'description': "Tacos, nachos, and burritos packed with bold flavors.",
         'rating': 4.4,
-        'menu': {'Tacos': 10, 'Nachos': 7, 'Burrito': 12}
+        'menu': {'Tacos': 10, 'Nachos': 7, 'Burrito': 12};
     },
     'Vegan Delights': {
         'description': "Healthy and delicious plant-based meals for every taste.",
