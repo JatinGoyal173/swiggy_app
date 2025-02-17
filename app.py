@@ -22,35 +22,53 @@ def init_db():
         conn.commit()
 
 init_db()
+
 restaurants = {
-    'Spicy Bites': {'description': "Authentic Indian flavors!", 'menu': {'Biryani': 12, 'Noodles': 10, 'Paneer Tikka': 8}, 'delivery_time': '30 mins', 'rating': 4.5},
-    'Pasta Palace': {'description': "Delicious Italian dishes.", 'menu': {'Pasta Alfredo': 15, 'Garlic Bread': 5, 'Lasagna': 18}, 'delivery_time': '25 mins', 'rating': 4.8},
-    'Burger Hub': {'description': "Juicy burgers & crispy fries!", 'menu': {'Cheeseburger': 8, 'Fries': 4, 'Milkshake': 6}, 'delivery_time': '20 mins', 'rating': 4.2},
-    'Sushi Haven': {'description': "Fresh and delicious sushi rolls.", 'menu': {'California Roll': 14, 'Tuna Roll': 16, 'Miso Soup': 5}, 'delivery_time': '35 mins', 'rating': 4.7},
-    'Taco Fiesta': {'description': "Sizzling Mexican tacos & burritos.", 'menu': {'Taco Supreme': 10, 'Burrito': 12, 'Quesadilla': 8}, 'delivery_time': '30 mins', 'rating': 4.3},
-    'Pizza Corner': {'description': "Classic and specialty pizzas.", 'menu': {'Margherita Pizza': 13, 'Pepperoni Pizza': 15, 'Garlic Knots': 6}, 'delivery_time': '25 mins', 'rating': 4.6},
-    'Vegan Vibes': {'description': "Plant-based goodness for everyone!", 'menu': {'Vegan Burger': 10, 'Vegan Tacos': 9, 'Quinoa Salad': 8}, 'delivery_time': '20 mins', 'rating': 4.4},
-    'Seafood Shack': {'description': "Fresh catches from the ocean!", 'menu': {'Grilled Salmon': 20, 'Lobster Roll': 25, 'Clam Chowder': 7}, 'delivery_time': '40 mins', 'rating': 4.9},
-    'Pasta & Pizzas': {'description': "Where pasta and pizza unite.", 'menu': {'Spaghetti Carbonara': 14, 'Pepperoni Pizza': 16, 'Garlic Bread': 5}, 'delivery_time': '30 mins', 'rating': 4.7}
+    'Spicy Bites': {
+        'description': "Authentic Indian flavors!",
+        'menu': {'Biryani': 12, 'Noodles': 10, 'Paneer Tikka': 8},
+        'image_url': 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg'
+    },
+    'Pasta Palace': {
+        'description': "Delicious Italian dishes.",
+        'menu': {'Pasta Alfredo': 15, 'Garlic Bread': 5, 'Lasagna': 18},
+        'image_url': 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg'
+    },
+    'Burger Hub': {
+        'description': "Juicy burgers & crispy fries!",
+        'menu': {'Cheeseburger': 8, 'Fries': 4, 'Milkshake': 6},
+        'image_url': 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'
+    },
+    'Sushi World': {
+        'description': "Fresh sushi & Japanese delights.",
+        'menu': {'Sushi Roll': 20, 'Miso Soup': 7, 'Tempura': 12},
+        'image_url': 'https://images.pexels.com/photos/4198023/pexels-photo-4198023.jpeg'
+    },
+    'Taco Fiesta': {
+        'description': "Delicious Mexican street food.",
+        'menu': {'Tacos': 10, 'Quesadilla': 8, 'Nachos': 9},
+        'image_url': 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092'
+    },
+    'Healthy Greens': {
+        'description': "Fresh & organic meals.",
+        'menu': {'Salad Bowl': 12, 'Smoothie': 6, 'Avocado Toast': 10},
+        'image_url': 'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg'
+    }
 }
 
-
-
-
 def login_required(func):
+    from functools import wraps
+    @wraps(func)
     def wrapper(*args, **kwargs):
         if 'user_id' not in session:
             flash("Please log in first.", "warning")
             return redirect(url_for('login'))
         return func(*args, **kwargs)
-    wrapper.__name__ = func.__name__
     return wrapper
 
 @app.route('/')
 def index():
-    if 'user_id' in session:
-        return redirect(url_for('home'))
-    return redirect(url_for('login'))  # Redirects to login instead of welcome.html
+    return redirect(url_for('home') if 'user_id' in session else url_for('login'))
 
 @app.route('/home')
 @login_required
@@ -88,14 +106,12 @@ def login():
             session['username'] = username
             flash("Login successful!", "success")
             return redirect(url_for('home'))
-        else:
-            flash("Invalid username or password.", "danger")
+        flash("Invalid username or password.", "danger")
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('user_id', None)
-    session.pop('username', None)
+    session.clear()
     flash("Logged out successfully.", "info")
     return redirect(url_for('login'))
 
@@ -110,15 +126,12 @@ def order():
         quantity = int(request.form['quantity'])
         price_per_item = restaurants[restaurant_name]['menu'][food_item]
         total_price = price_per_item * quantity
-
         with sqlite3.connect("orders.db") as conn:
             cursor = conn.cursor()
             cursor.execute("INSERT INTO orders (user_id, name, contact, restaurant, food_item, quantity, total_price) VALUES (?, ?, ?, ?, ?, ?, ?)", 
                            (session['user_id'], name, contact, restaurant_name, food_item, quantity, total_price))
             conn.commit()
-
         return render_template('bill.html', name=name, contact=contact, restaurant=restaurant_name, food_item=food_item, quantity=quantity, total_price=total_price)
-
     return render_template('order.html', restaurants=restaurants)
 
 @app.route('/history')
