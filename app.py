@@ -27,34 +27,47 @@ restaurants = {
     'Spicy Bites': {
         'description': "Authentic Indian flavors!",
         'menu': {'Biryani': 12, 'Noodles': 10, 'Paneer Tikka': 8},
-        'image_url': 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg'
+        'image_url': 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg',
+        'delivery_time': '30-40 min',
+        'rating': 4.5
     },
     'Pasta Palace': {
         'description': "Delicious Italian dishes.",
         'menu': {'Pasta Alfredo': 15, 'Garlic Bread': 5, 'Lasagna': 18},
-        'image_url': 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg'
+        'image_url': 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg',
+        'delivery_time': '25-35 min',
+        'rating': 4.7
     },
     'Burger Hub': {
         'description': "Juicy burgers & crispy fries!",
         'menu': {'Cheeseburger': 8, 'Fries': 4, 'Milkshake': 6},
-        'image_url': 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d'
+        'image_url': 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+        'delivery_time': '20-30 min',
+        'rating': 4.3
     },
     'Sushi World': {
         'description': "Fresh sushi & Japanese delights.",
         'menu': {'Sushi Roll': 20, 'Miso Soup': 7, 'Tempura': 12},
-        'image_url': 'https://images.pexels.com/photos/4198023/pexels-photo-4198023.jpeg'
+        'image_url': 'https://images.pexels.com/photos/4198023/pexels-photo-4198023.jpeg',
+        'delivery_time': '40-50 min',
+        'rating': 4.8
     },
     'Taco Fiesta': {
         'description': "Delicious Mexican street food.",
         'menu': {'Tacos': 10, 'Quesadilla': 8, 'Nachos': 9},
-        'image_url': 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092'
+        'image_url': 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092',
+        'delivery_time': '15-25 min',
+        'rating': 4.6
     },
     'Healthy Greens': {
         'description': "Fresh & organic meals.",
         'menu': {'Salad Bowl': 12, 'Smoothie': 6, 'Avocado Toast': 10},
-        'image_url': 'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg'
+        'image_url': 'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg',
+        'delivery_time': '20-30 min',
+        'rating': 4.9
     }
 }
+
 
 def login_required(func):
     from functools import wraps
