@@ -64,16 +64,17 @@
             
             <select class="form-control mb-3" name="food" required>
                 <option value="">Select Food Item</option>
-                {% for restaurant in restaurants %}
-                {% for food, price in restaurants[restaurant]['menu'].items() %}
-                <option value="{{ food }}">{{ food }} - ${{ price }}</option>
-                {% endfor %}
+                {% for restaurant, details in restaurants.items() %}
+                    {% for food, price in details.menu.items() %}
+                        <option value="{{ food }}">{{ food }} - ${{ price }}</option>
+                    {% endfor %}
                 {% endfor %}
             </select>
+            
 
             <input type="number" class="form-control mb-3" name="quantity" placeholder="Quantity" min="1" required>
 
-            <button type="submit" class="btn btn-success w-100">Order Now</button>
+            <button type="submit" class="btn btn-success w-100">view Order </button>
         </form>
     </div>
 
