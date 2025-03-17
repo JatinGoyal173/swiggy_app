@@ -2,67 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Order Takeaway</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Takeaway | Food Delivery</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
         body {
-            background: url('https://source.unsplash.com/1600x900/?restaurant,food') no-repeat center center/cover;
+            background-image: url('https://www.eatright.org/-/media/images/eatright-landing-pages/proteinfoodslp_804x482.jpg?as=0&w=967&rev=7bc35fa83e9f47fb8121b6bca14a6bf9&hash=BF9F378BEC8E6A093545CB2C669C175C');
+            background-size: cover;
+            background-position: center;
             font-family: 'Poppins', sans-serif;
-            color: white;
-            transition: background-image 1s ease-in-out;
+            color: #333;
+            min-height: 100vh;
+            display: flex; /* Flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-        }
-
-        .container {
-            margin-top: 50px;
+        .order-container {
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
             backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 10px;
-            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-success {
-            background-color: #28a745;
+        h2 {
+            color: #ff6f61; /* Bright coral */
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
             border: none;
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for input fields */
+            color: #333;
         }
 
-        .btn-success:hover {
-            background-color: #218838;
+        input::placeholder {
+            color: rgba(51, 51, 51, 0.6);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #28a745; /* Green button */
+            color: white;
+            font-size: larger; 
+            font-weight: bold; 
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; 
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2 class="text-center">🍽️ Place Your Order</h2>
+    <div class="order-container">
+        <h2>🍽 Place Your Order</h2>
 
         <form method="post">
-            <input type="text" class="form-control mb-3" name="name" placeholder="Your Name" required>
-            <input type="text" class="form-control mb-3" name="contact" placeholder="Contact Number" required>
-            <select class="form-control mb-3" name="restaurant" required>
+            <input type="text" name="name" placeholder="Your Name" required>
+            
+            <input type="text" name="contact" placeholder="Contact Number" required>
+            
+            <select name="restaurant" required>
                 <option value="">Select Restaurant</option>
                 {% for restaurant in restaurants %}
                 <option value="{{ restaurant }}">{{ restaurant }}</option>
                 {% endfor %}
             </select>
             
-            <select class="form-control mb-3" name="food" required>
+            <select name="food" required>
                 <option value="">Select Food Item</option>
                 {% for restaurant, details in restaurants.items() %}
                     {% for food, price in details.menu.items() %}
@@ -70,18 +95,16 @@
                     {% endfor %}
                 {% endfor %}
             </select>
-            
 
-            <input type="number" class="form-control mb-3" name="quantity" placeholder="Quantity" min="1" required>
+            <input type="number" name="quantity" placeholder="Quantity" min="1" required>
 
-            <button type="submit" class="btn btn-success w-100">view Order </button>
+            <button type="submit">View Order</button>
         </form>
     </div>
 
     <script>
-        // Automatic background image refresh every 10 seconds
         setInterval(() => {
-            document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?restaurant,food&random=${Math.random()}')`;
+            document.body.style.backgroundImage = url('https://source.unsplash.com/1920x1080/?restaurant,food&random=${Math.random()}');
         }, 10000);
     </script>
 

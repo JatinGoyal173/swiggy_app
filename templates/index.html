@@ -2,171 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Listings</title>
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
-        /* Full-Page Background */
         body {
-            background: url('https://source.unsplash.com/1920x1080/?restaurant,food,dining') no-repeat center center/cover;
+            background-image: url('https://www.eatingwell.com/thmb/V6dt4TjTHelMcuPed51nDb75Zfk=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_7866255_foods-you-should-eat-every-week-to-lose-weight_-04-d58e9c481bce4a29b47295baade4072d.jpg'); /* Background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
             font-family: 'Poppins', sans-serif;
-            color: #fff;
+            color: #333;
             min-height: 100vh;
             overflow-x: hidden;
-            transition: background-image 1s ease-in-out;
         }
 
-        /* Dark overlay for readability */
-        body::before {
-            content: "";
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
             z-index: -1;
         }
 
-        /* Navbar */
         .navbar {
-            background: rgba(255, 69, 0, 0.9);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background-color: #ff6f61; /* Bright coral color */
             padding: 20px;
         }
 
         .navbar-brand {
             font-size: 2rem;
             font-weight: bold;
-            color: #fff;
+            color: #ffffff;
         }
 
         .btn-light {
-            font-weight: bold;
-            color: #333;
-            background: #fff;
-            border-radius: 10px;
-            transition: all 0.3s;
+            font-weight: normal;
+            color: #333333;
+            background-color: #ffe6e6; /* Light pastel pink */
+            border-radius: 5px;
+            padding: 10px 20px;
         }
 
-        .btn-light:hover {
-            background: #ff6b6b;
-            color: white;
-        }
-
-        /* Header */
         h2 {
             text-align: center;
-            font-weight: bold;
-            color: #ffd700;
-            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #ff6f61; /* Coral for headings */
+            margin-bottom: 50px;
         }
 
-        /* Restaurant Cards */
         .restaurant-card {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: #ffffff; /* White card */
+            border-radius: 12px;
+            border: none;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-            overflow: hidden;
-            position: relative;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .restaurant-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* Restaurant Image */
         .card-img-top {
-            height: 200px;
-            object-fit: cover;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+            height: auto;
+            max-height: 220px; 
+            object-fit: cover; 
+            border-top-left-radius: 12px; 
+            border-top-right-radius: 12px; 
         }
 
-        /* Card Body */
         .card-body {
             text-align: center;
-            color: white;
-            padding: 20px;
+            color: #333333; 
+            padding-top: 20px; 
         }
 
         .card-title {
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 1.5rem; 
+            font-weight: bold; 
         }
 
         .card-text {
-            font-size: 1rem;
+            font-size: 1rem; 
         }
 
-        /* Order Button */
         .btn-primary {
-            background-color: #ff6b6b;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 10px;
-            transition: background 0.3s ease-in-out, transform 0.2s;
+            background-color: #ff6f61; /* Bright coral */
+            padding: 14px; 
+            font-size: larger; 
+            font-weight: bold; 
+            border-radius: 5px; 
+            transition: background-color 0.3s ease-in-out, transform 0.2s; 
         }
 
         .btn-primary:hover {
-            background-color: #ff4757;
-            transform: scale(1.05);
-        }
+            background-color: #ff4c3b; /* Darker coral on hover */
+          transform :scale(1.05); 
+          box-shadow :rgba(255 ,255 ,255 ,0.2) -4px -4px; 
+      }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-        }
+      .footer {
+          text-align:center; 
+          padding :20 px; 
+          width :100%; 
+          background :#ffe6e6 ; /* Light pastel pink */
+          color:#333333 ; 
+          position :fixed ; 
+          bottom :0 ; 
+          left :0 ; 
+      }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark">
+    <div class="overlay"></div> <!-- Overlay for better text visibility -->
+
+    <nav class="navbar navbar-light">
         <div class="container d-flex justify-content-between">
-            <a class="navbar-brand fw-bold" href="#">🍽️ Food Delivery</a>
-            <a class="btn btn-light" href="#">View Orders</a>
-        </div>
+          <a class="navbar-brand fw-bold" href="#">Food Delivery</a>
+          <a class="btn btn-light" href="#">View Orders</a>
+      </div>
     </nav>
 
     <div class="container mt-5">
-        <h2>✨ Featured Restaurants ✨</h2>
+      <h2>Featured Restaurants</h2>
 
-        <div class="row">
-            {% for restaurant_name, restaurant in restaurants.items() %}
-            <div class="col-md-4 mb-4">
-                <div class="card restaurant-card shadow-lg">
-                    <img src="{{ restaurant.image_url if restaurant.image_url else 'https://source.unsplash.com/400x300/?food' }}" class="card-img-top" alt="{{ restaurant_name | default('Restaurant') }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ restaurant_name | default('Unknown') }}</h5>
-                        <p class="card-text"><strong>Rating:</strong> ⭐ {{ restaurant.rating | default('N/A') }}</p>
-                        <p class="card-text"><strong>Delivery Time:</strong> 🚴 {{ restaurant.delivery_time | default('N/A') }}</p>
-                        <a href="{{ url_for('order', restaurant=restaurant_name) }}" class="btn btn-primary">Order Takeaway</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+      <div class="row">
+          {% for restaurant_name, restaurant in restaurants.items() %}
+          <div class="col-md-4 mb-5"> <!-- Increased margin-bottom for more space -->
+              <div class="card restaurant-card shadow-lg">
+                  <img src="{{ restaurant.image_url if restaurant.image_url else 'https://source.unsplash.com/400x300/?food' }}" class="card-img-top" alt="{{ restaurant_name | default('Restaurant') }}">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ restaurant_name | default('Unknown') }}</h5>
+                      <p class="card-text"><strong>Rating:</strong> ⭐ {{ restaurant.rating | default('N/A') }}</p>
+                      <p class="card-text"><strong>Delivery Time:</strong> 🚴 {{ restaurant.delivery_time | default('N/A') }}</p>
+                      <a href="{{ url_for('order', restaurant=restaurant_name) }}" class="btn btn-primary">Order Now</a>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
     </div>
 
     <div class="footer">
-        <p>© 2025 Food Delivery | All Rights Reserved</p>
+      <p>© {{ current_year }} Food Delivery | All Rights Reserved</p>
     </div>
 
 </body>
